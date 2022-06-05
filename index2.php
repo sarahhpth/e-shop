@@ -15,7 +15,7 @@ if (session_id() == '' || !isset($_SESSION)) {
   <meta name="author" content="">
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
 
-  <title>E-SHOP - Product Detail</title>
+  <title>E-SHOP - Ecommerce Platform</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -25,7 +25,6 @@ if (session_id() == '' || !isset($_SESSION)) {
   <link rel="stylesheet" href="assets/css/fontawesome.css">
   <link rel="stylesheet" href="assets/css/tooplate-main.css">
   <link rel="stylesheet" href="assets/css/owl.css">
-  <link rel="stylesheet" href="assets/css/flex-slider.css">
   <!--
 Tooplate 2114 Pixie
 https://www.tooplate.com/view/2114-pixie
@@ -54,17 +53,15 @@ https://www.tooplate.com/view/2114-pixie
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="index2.php">Home</a>
+          <li class="nav-item active">
+            <a class="nav-link" href="index2.php">Home
+              <span class="sr-only">(current)</span>
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="profile.html">Profile</a>
           </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="products.html">Products
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
+
           <li class="nav-item">
             <a class="nav-link" href="cart.html">Cart</a>
           </li>
@@ -86,60 +83,60 @@ https://www.tooplate.com/view/2114-pixie
   </nav>
 
   <!-- Page Content -->
-  <!-- Single Starts Here -->
-  <div class="single-product">
+  <!-- Banner Starts Here -->
+  <div class="banner">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <div class="section-heading">
+          <div class="caption">
+            <h2>E-SHOP</h2>
             <div class="line-dec"></div>
-            <h1>Single Product</h1>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="product-slider">
-            <?php
-            include("connection.php");
-            $id_barang = $_GET['id_barang'];
-
-            $sql = "SELECT * FROM barang WHERE id_barang = '$id_barang'";
-            $result = $conn->query($sql);
-            while ($product = mysqli_fetch_assoc($result)) {
-            ?>
-              <img src="<?= $product['gambar']; ?>" alt="<?= $product['nama_barang']; ?>">
-          </div>
-        <?php
-            }
-        ?>
-        </div>
-
-
-        <div class="col-md-6">
-          <div class="right-content">
-            <h4>Single Product Name</h4>
-            <h6>$55.00</h6>
-            <p>Proin commodo, diam a ultricies sagittis, erat odio rhoncus metus, eu feugiat lorem lacus aliquet arcu. Curabitur in gravida nisi, non placerat nibh. Praesent sit amet diam ultrices, commodo turpis id, dignissim leo. Suspendisse mauris massa, porttitor non fermentum vel, ullamcorper scelerisque velit. </p>
-            <span>7 left on stock</span>
-            <form action="" method="get">
-              <label for="quantity">Quantity:</label>
-              <input name="quantity" type="quantity" class="quantity-text" id="quantity" onfocus="if(this.value == '1') { this.value = ''; }" onBlur="if(this.value == '') { this.value = '1';}" value="1">
-              <input type="submit" class="button" value="Add to Cart!">
-            </form>
-            <div class="down-content">
-              <div class="categories">
-                <h6>Category: <span><a href="#">Pants</a>,<a href="#">Women</a>,<a href="#">Lifestyle</a></span></h6>
-              </div>
-              <div class="share">
-                <h6>Share: <span><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-linkedin"></i></a><a href="#"><i class="fa fa-twitter"></i></a></span></h6>
-              </div>
+            <p><strong>E-SHOP</strong> merupakan aplikasi jual beli online terpercaya yang dapat diakses dengan mudah yang tergolong ke dalam kategori e-commerce. Kehadiran <strong>E-SHOP</strong> mampu mempermudah penggunanya untuk dapat bertransaksi secara online tanpa perlu repot menuju toko secara langsung.</p>
+            <div class="main-button">
+              <a href="products.html">Order Now!</a>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- Single Page Ends Here -->
+  <!-- Banner Ends Here -->
 
+  <!-- Featured Starts Here -->
+  <div class="featured-items">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="section-heading">
+            <div class="line-dec"></div>
+            <h1>Featured Items</h1>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="owl-carousel owl-theme">
+            <?php
+            include('connection.php');
+            $sql = "SELECT * FROM barang";
+            $result = $conn->query($sql);
+            while ($product = mysqli_fetch_assoc($result)) {
+            ?>
+              <a href="single-product.php?action=add&id_barang=<?= $product['id_barang'] ?>">
+                <div class="featured-item">
+                  <img src="<?= $product['gambar']; ?>" alt="<?= $product['nama_barang']; ?>">
+                  <h4><?= $product['nama_barang']; ?></h4>
+                  <h6>Rp<?= $product['harga']; ?></h6>
+                </div>
+              </a>
+            <?php
+              //$_SESSION['id_barang'] = $product['id_barang'];
+            }
+            ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Featured Ends Here -->
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -149,8 +146,6 @@ https://www.tooplate.com/view/2114-pixie
   <!-- Additional Scripts -->
   <script src="assets/js/custom.js"></script>
   <script src="assets/js/owl.js"></script>
-  <script src="assets/js/isotope.js"></script>
-  <script src="assets/js/flex-slider.js"></script>
 
 
   <script language="text/Javascript">

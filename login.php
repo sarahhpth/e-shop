@@ -1,21 +1,26 @@
 <?php
-session_start();
+if (session_id() == '' || !isset($_SESSION)) {
+    session_start();
+}
 
-$conn = mysqli_connect('localhost','root');
+include("connection.php");
 
-mysqli_select_db($conn, 'database_pi');
-
-$name = $_POST["name"];
+$email = $_POST["email"];
 $password = $_POST["password"];
 
-$query_sql = "SELECT * FROM regist 
-                        WHERE name = '$name' AND password = '$password'";
+$query_sql = "SELECT * FROM user 
+                        WHERE email = '$email' AND password = '$password'";
 
 $result = mysqli_query($conn, $query_sql);
+$obj = $result->fetch_object();
 
-if(mysqli_num_rows($result) > 0){
-    header("location:index2.html");
-}else{
-      echo "<h2>Username atau Password Salah!</h2>";
+if (mysqli_num_rows($result) > 0) {
+    print_r($obj);
+
+    $_SESSION['email'] = $email;
+    $_SESSION['id'] = $obj->id;
+
+    header("location:index2.php");
+} else {
+    header("location: login.html");
 }
-?>

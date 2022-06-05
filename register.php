@@ -1,27 +1,25 @@
 <?php
 
-session_start();
+if (session_id() == '' || !isset($_SESSION)) {
+    session_start();
+}
 
-$con = mysqli_connect('localhost','root');
-
-mysqli_select_db($con, 'database_pi');
+include("connection.php");
 
 $name = $_POST['name'];
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-$s = " select * from regist where name = '$name'";
+$s = " SELECT * from user where email = '$email'";
 
-$result = mysqli_query($con, $s);
+$result = mysqli_query($conn, $s);
 
 $num = mysqli_num_rows($result);
 
-if($num == 1) {
-    echo" Username already taken";
-}else{
-    $reg = "insert into regist(name, email, password) values ('$name' , '$email' , '$password')";
-    mysqli_query($con, $reg);
+if ($num == 1) {
+    echo " Account has already registered";
+} else {
+    $reg = "INSERT into user (name, email, password) values ('$name' , '$email' , '$password')";
+    mysqli_query($conn, $reg);
     header("location:login.html");
 }
-
-?>

@@ -63,9 +63,6 @@ https://www.tooplate.com/view/2114-pixie
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="cart.html">Cart</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="topup.html">Top_Up</a>
           </li>
           <li class="nav-item">

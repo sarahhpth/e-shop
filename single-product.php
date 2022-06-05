@@ -64,14 +64,7 @@ https://www.tooplate.com/view/2114-pixie
           <li class="nav-item">
             <a class="nav-link" href="profile.html">Profile</a>
           </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="products.html">Products
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="cart.html">Cart</a>
-          </li>
+
           <li class="nav-item">
             <a class="nav-link" href="topup.html">Top_Up</a>
           </li>
@@ -97,7 +90,7 @@ https://www.tooplate.com/view/2114-pixie
         <div class="col-md-12">
           <div class="section-heading">
             <div class="line-dec"></div>
-            <h1>Single Product</h1>
+            <h1>Product</h1>
           </div>
         </div>
         <div class="col-md-6">
@@ -132,7 +125,7 @@ https://www.tooplate.com/view/2114-pixie
               }
               ?>
             </div>
-            <form action="" method="get">
+            <form action="checkout.php" method="post">
               <label for="quantity">Quantity:</label>
               <input name="quantity" type="quantity" class="quantity-text" id="quantity" onfocus="if(this.value == '1') { this.value = ''; }" onBlur="if(this.value == '') { this.value = '1';}" value="1">
               <input type="submit" class="button" value="Buy!">

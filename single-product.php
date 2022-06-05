@@ -2,6 +2,10 @@
 if (session_id() == '' || !isset($_SESSION)) {
   session_start();
 }
+
+include("connection.php");
+
+
 ?>
 
 <!DOCTYPE html>
@@ -99,9 +103,7 @@ https://www.tooplate.com/view/2114-pixie
         <div class="col-md-6">
           <div class="product-slider">
             <?php
-            include("connection.php");
             $id_barang = $_GET['id_barang'];
-
             $sql = "SELECT * FROM barang WHERE id_barang = '$id_barang'";
             $result = $conn->query($sql);
             while ($product = mysqli_fetch_assoc($result)) {
@@ -116,18 +118,28 @@ https://www.tooplate.com/view/2114-pixie
 
         <div class="col-md-6">
           <div class="right-content">
-            <h4>Single Product Name</h4>
-            <h6>$55.00</h6>
-            <p>Proin commodo, diam a ultricies sagittis, erat odio rhoncus metus, eu feugiat lorem lacus aliquet arcu. Curabitur in gravida nisi, non placerat nibh. Praesent sit amet diam ultrices, commodo turpis id, dignissim leo. Suspendisse mauris massa, porttitor non fermentum vel, ullamcorper scelerisque velit. </p>
-            <span>7 left on stock</span>
+            <div class="product-desc">
+              <?php
+              $id_barang = $_GET['id_barang'];
+              $sql = "SELECT * FROM barang WHERE id_barang = '$id_barang'";
+              $result = $conn->query($sql);
+              while ($product = mysqli_fetch_assoc($result)) {
+
+                echo '<h4>' . $product['nama_barang'] . '</h4>';
+                echo '<h6>Rp' . $product['harga'] . '</h6>';
+                echo '<p>' . $product['deskripsi'] . '</p>';
+                echo '<span>Stock left: ' . $product['stok'] . '</span>';
+              }
+              ?>
+            </div>
             <form action="" method="get">
               <label for="quantity">Quantity:</label>
               <input name="quantity" type="quantity" class="quantity-text" id="quantity" onfocus="if(this.value == '1') { this.value = ''; }" onBlur="if(this.value == '') { this.value = '1';}" value="1">
-              <input type="submit" class="button" value="Add to Cart!">
+              <input type="submit" class="button" value="Buy!">
             </form>
             <div class="down-content">
               <div class="categories">
-                <h6>Category: <span><a href="#">Pants</a>,<a href="#">Women</a>,<a href="#">Lifestyle</a></span></h6>
+                <h6>Category: <span><a href="#">Pets</a></span></h6>
               </div>
               <div class="share">
                 <h6>Share: <span><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-linkedin"></i></a><a href="#"><i class="fa fa-twitter"></i></a></span></h6>

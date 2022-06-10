@@ -125,10 +125,17 @@ https://www.tooplate.com/view/2114-pixie
               }
               ?>
             </div>
-            <form action="checkout.php" method="post">
+            <?php
+            $id_barang = $_GET['id_barang'];
+            $sql = "SELECT * FROM barang WHERE id_barang = '$id_barang'";
+            $result = $conn->query($sql);
+            $product = mysqli_fetch_assoc($result);
+            ?>
+            <form action="checkout.php?action=add&id_barang=<?= $id_barang ?>" method="post">
               <label for="quantity">Quantity:</label>
               <input name="quantity" type="quantity" class="quantity-text" id="quantity" onfocus="if(this.value == '1') { this.value = ''; }" onBlur="if(this.value == '') { this.value = '1';}" value="1">
-              <input type="submit" class="button" value="Buy!">
+              <input type="submit" class="button" name="action" value="Buy!">
+
             </form>
             <div class="down-content">
               <div class="categories">

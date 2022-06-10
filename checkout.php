@@ -1,3 +1,22 @@
+<?php
+if (session_id() == '' || !isset($_SESSION)) {
+    session_start();
+}
+
+include("connection.php");
+$id_barang = $_GET['id_barang'];
+$sql = "SELECT * FROM barang WHERE id_barang = '$id_barang'";
+$result = $conn->query($sql);
+$product = mysqli_fetch_assoc($result);
+
+$nama_barang = $product['nama_barang'];
+$gambar = $product['gambar'];
+$harga = $product['harga'];
+$quantity = $_POST['quantity'];
+$total_harga = $harga * $quantity;
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -97,7 +116,23 @@ https://www.tooplate.com/view/2114-pixie
 
                 <div class="col-md-4">
                     <div class="checkout_details_area mt-50 clearfix">
-                        <img src="images/barang1.jpg" alt="wooo">
+                        <?php
+                        // $id_barang = $_GET['id_barang'];
+                        // $sql = "SELECT * FROM barang WHERE id_barang = '$id_barang'";
+                        // $result = $conn->query($sql);
+                        // $product = mysqli_fetch_assoc($result);
+
+                        // $nama_barang = $product['nama_barang'];
+                        // $gambar = $product['gambar'];
+                        // $harga = $product['harga'];
+                        // $quantity = $_POST['quantity'];
+                        // $total_harga = $harga * $quantity;
+
+                        $sql2 = "INSERT INTO transaksi (nama_barang, harga, quantity, total_harga) values('$nama_barang', '$harga', '$quantity', '$total_harga')";
+                        $result2 = $conn->query($sql2);
+
+                        ?>
+                        <img src="<?= $gambar ?>">
 
                     </div>
                 </div>
@@ -107,13 +142,13 @@ https://www.tooplate.com/view/2114-pixie
 
                         <div class="cart-page-heading">
                             <h5>Your Order</h5>
-                            <p>Product Name</p>
+                            <p><?= $nama_barang ?></p>
                         </div>
 
                         <ul class="order-details-form mb-4">
-                            <li><span>Price</span> <span>Rp500000</span></li>
-                            <li><span>Quantity</span> <span>2</span></li>
-                            <li><span>Total</span> <span>Rp1000000</span></li>
+                            <li><span>Price</span> <span>Rp<?= $harga ?></span></li>
+                            <li><span>Quantity</span> <span><?= $quantity ?></span></li>
+                            <li><span>Total</span> <span>Rp<?= $total_harga ?></span></li>
                         </ul>
 
 

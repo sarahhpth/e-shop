@@ -5,7 +5,14 @@ if (session_id() == '' || !isset($_SESSION)) {
 
 include("connection.php");
 
+$id_barang = $_GET['id_barang'];
+$sql = "SELECT * FROM barang WHERE id_barang = '$id_barang'";
+$result = $conn->query($sql);
+$product = mysqli_fetch_assoc($result);
 
+$nama_barang = $product['nama_barang'];
+$gambar = $product['gambar'];
+$harga = number_format($product['harga']);
 ?>
 
 <!DOCTYPE html>
@@ -95,17 +102,8 @@ https://www.tooplate.com/view/2114-pixie
         </div>
         <div class="col-md-6">
           <div class="product-slider">
-            <?php
-            $id_barang = $_GET['id_barang'];
-            $sql = "SELECT * FROM barang WHERE id_barang = '$id_barang'";
-            $result = $conn->query($sql);
-            while ($product = mysqli_fetch_assoc($result)) {
-            ?>
-              <img src="<?= $product['gambar']; ?>" alt="<?= $product['nama_barang']; ?>">
+            <img src="<?= $gambar; ?>">
           </div>
-        <?php
-            }
-        ?>
         </div>
 
 
@@ -121,16 +119,9 @@ https://www.tooplate.com/view/2114-pixie
                 echo '<h4>' . $product['nama_barang'] . '</h4>';
                 echo '<h6>Rp' . $product['harga'] . '</h6>';
                 echo '<p>' . $product['deskripsi'] . '</p>';
-                echo '<span>Stock left: ' . $product['stok'] . '</span>';
               }
               ?>
             </div>
-            <?php
-            $id_barang = $_GET['id_barang'];
-            $sql = "SELECT * FROM barang WHERE id_barang = '$id_barang'";
-            $result = $conn->query($sql);
-            $product = mysqli_fetch_assoc($result);
-            ?>
             <form action="checkout.php?action=add&id_barang=<?= $id_barang ?>" method="post">
               <label for="quantity">Quantity:</label>
               <input name="quantity" type="quantity" class="quantity-text" id="quantity" onfocus="if(this.value == '1') { this.value = ''; }" onBlur="if(this.value == '') { this.value = '1';}" value="1">

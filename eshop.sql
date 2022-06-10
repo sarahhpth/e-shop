@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 10, 2022 at 11:33 AM
+-- Generation Time: Jun 10, 2022 at 02:40 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -49,6 +49,40 @@ INSERT INTO `barang` (`id_barang`, `nama_barang`, `gambar`, `harga`, `stok`, `de
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `transaksi`
+--
+
+CREATE TABLE `transaksi` (
+  `id_transaksi` bigint(20) NOT NULL,
+  `nama_barang` varchar(100) NOT NULL,
+  `harga` float NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `total_harga` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `transaksi`
+--
+
+INSERT INTO `transaksi` (`id_transaksi`, `nama_barang`, `harga`, `quantity`, `total_harga`) VALUES
+(1, 'Floof Bed', 100000, 0, 0),
+(2, 'Floof Bed', 100000, 0, 0),
+(3, 'Floof Bed', 100000, 0, 0),
+(4, 'Pet Bowl', 80000, 0, 0),
+(5, 'Pet Cargo', 300000, 2, 600000),
+(6, 'Cat Wheel', 500000, 2, 1000000),
+(7, 'Cat Wheel', 500000, 2, 1000000),
+(8, 'Cat Wheel', 500000, 2, 1000000),
+(9, 'Cat Wheel', 500000, 2, 1000000),
+(10, 'Pet Bowl', 80000, 6, 480000),
+(11, 'Pet Cargo', 300000, 7, 2100000),
+(12, 'Pet Cargo', 300000, 7, 2100000),
+(13, 'Floof Bed', 100000, 1, 100000),
+(14, 'Floof Bed', 100000, 9, 900000);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -82,6 +116,12 @@ ALTER TABLE `barang`
   ADD UNIQUE KEY `nama_barang` (`nama_barang`);
 
 --
+-- Indexes for table `transaksi`
+--
+ALTER TABLE `transaksi`
+  ADD PRIMARY KEY (`id_transaksi`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -96,6 +136,12 @@ ALTER TABLE `user`
 --
 ALTER TABLE `barang`
   MODIFY `id_barang` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `transaksi`
+--
+ALTER TABLE `transaksi`
+  MODIFY `id_transaksi` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `user`

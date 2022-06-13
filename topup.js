@@ -1,4 +1,4 @@
-var moneygo_transfer = "https://moneygo-api.herokuapp.com/api/topup";
+var moneygo_topup = "https://moneygo-api.herokuapp.com/api/topup";
 
 //ambil token dari local.Storage. local storage ada di page source >> application
 const moneygo = JSON.stringify(localStorage.getItem('moneygo'));

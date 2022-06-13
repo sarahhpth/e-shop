@@ -26,7 +26,8 @@ if (mysqli_num_rows($result) > 0) {
 
     header("location:index2.php");
 } else {
-    echo "kok disini";
+    echo
+    header("location: login.html");
 }
 ?>
 

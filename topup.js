@@ -41,7 +41,7 @@ buttonSubmit.addEventListener("click", (e) => {
     async function getData(){
 
         //response masih dalam bentuk string
-        let data_moneygo = await getResponse(moneygo_login);
+        let data_moneygo = await getResponse(moneygo_topup);
         // let data_coinless = await getResponse(coinless_login);
         // let data_harpay = await getResponse(harpay_login);
         // let data_ecia = await getResponse(ecia_login);

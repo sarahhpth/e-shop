@@ -121,7 +121,7 @@ https://www.tooplate.com/view/2114-pixie
                 <div class="featured-item">
                   <img src="<?= $product['gambar']; ?>" alt="<?= $product['nama_barang']; ?>">
                   <h4><?= $product['nama_barang']; ?></h4>
-                  <h6>Rp<?= $product['harga']; ?></h6>
+                  <h6>Rp<?= number_format($product['harga']); ?></h6>
                 </div>
               </a>
             <?php

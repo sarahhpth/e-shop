@@ -1,6 +1,7 @@
 var moneygo_register = "https://moneygo-api.herokuapp.com/api/register";
 var coinless_register = "https://coinless.herokuapp.com/api/profile";
-
+var ecia_register = "https://api-ecia.herokuapp.com/api/profile";
+var harpay_register = "https://harpay-api.herokuapp.com/auth/registrasi";
 
 //post
 var myHeaders = new Headers();
@@ -40,22 +41,17 @@ buttonSubmit.addEventListener("click", (e) => {
     async function getData(){
         //response masih dalam bentuk string
         let data_moneygo = await getResponse(moneygo_register);
-        let data_coinless = await getResponse(coinless_register);
-        // console.log(data);
+        // let data_coinless = await getResponse(coinless_register);
+        let data_ecia = await getResponse(ecia_register);
+        
 
         //response string dijadiin json
         var resp_moneygo = JSON.parse(data_moneygo);
-        var resp_coinless= JSON.parse(data_coinless);
+        // var resp_coinless= JSON.parse(data_coinless);
+        var resp_ecia= JSON.parse(data_ecia);
 
-        // if(resp_moneygo.status == 200){
-        //     window.location.href = "login.html";
-        // }
         
-        // if(resp_moneygo.status == 400){
-        //     alert("Try again");
-        // }
-        
-        if(resp_moneygo.status == 200 && resp_coinless.status == 200){
+        if(resp_moneygo.status == 200 && resp_ecia.status == 200){
             window.location.href = "login.html";
         }else{
             alert("Try again");

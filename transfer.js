@@ -34,6 +34,7 @@ buttonSubmit.addEventListener("click", (e) => {
         var method = "POST";
 
         var raw = JSON.stringify({
+            
             email: email.value,
             balance: balance.value
         });

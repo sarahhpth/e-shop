@@ -20,6 +20,8 @@ if (session_id() == '' || !isset($_SESSION)) {
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+  <!-- Favicon  -->
+  <link rel="icon" href="images/favicon.ico">
 
   <!-- Additional CSS Files -->
   <link rel="stylesheet" href="assets/css/fontawesome.css">

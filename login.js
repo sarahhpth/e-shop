@@ -1,7 +1,6 @@
 var moneygo_login = "https://moneygo-api.herokuapp.com/api/login";
 var coinless_login = "https://coinless.herokuapp.com/api/login";
 var harpay_login = "https://harpay-api.herokuapp.com/auth/login";
-var ecia_login = "https://api-ecia.herokuapp.com/api/login";
 
 var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
@@ -39,24 +38,21 @@ buttonSubmit.addEventListener("click", (e) => {
     async function getData(){
         //response masih dalam bentuk string
         let data_moneygo = await getResponse(moneygo_login);
-        // let data_coinless = await getResponse(coinless_login);
+        let data_coinless = await getResponse(coinless_login);
         let data_harpay = await getResponse(harpay_login);
-        let data_ecia = await getResponse(ecia_login);
         
         //response string dijadiin json
         var resp_moneygo = JSON.parse(data_moneygo);
-        // var resp_coinless= JSON.parse(data_coinless);
+        var resp_coinless= JSON.parse(data_coinless);
         var resp_harpay= JSON.parse(data_harpay);
-        var resp_ecia= JSON.parse(data_ecia);
 
         //kalo success
-        if(resp_moneygo.success == true && resp_ecia.status == 200 && resp_harpay.message == "Auth success"){
+        if(resp_moneygo.success == true && resp_coinless.status == 200 && resp_harpay.message == "Auth success"){
             window.localStorage.setItem('moneygo', resp_moneygo.token);
-            //window.localStorage.setItem('coinless', resp_coinless.jwt);
+            window.localStorage.setItem('coinless', resp_coinless.jwt);
             window.localStorage.setItem('harpay', resp_harpay.token);
-            window.localStorage.setItem('ecia', resp_ecia.token);
             
-            window.location.href = "index2.php";
+            window.location.href = "home.php";
         }else{
             alert("try again");
         }

@@ -20,6 +20,24 @@
     <link rel="stylesheet" href="assets/css/tooplate-main.css">
     <link rel="stylesheet" href="assets/css/owl.css">
 
+    <style>
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+      
+      td, th {
+        border: 1px solid #e3e2e2;
+        text-align: left;
+        padding: 8px;
+      }
+      
+      tr:nth-child(even) {
+        background-color: #59abe58e;
+      }
+      </style>
+
 <!--
 Tooplate 2114 Pixie
 https://www.tooplate.com/view/2114-pixie
@@ -49,7 +67,7 @@ https://www.tooplate.com/view/2114-pixie
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="index2.php">Home
+              <a class="nav-link" href="home.php">Home
               </a>
             </li>
             <li class="nav-item active">
@@ -96,49 +114,40 @@ https://www.tooplate.com/view/2114-pixie
                         </div>
                       </div>
                     </div>
+                    <div class="col-12 mb-3">
+                      <label for="framework">Emoney *</label>
+                      <select id="emoney" class="form-control">
+                          <option value="Moneygo">Moneygo</option>
+                          <option value="Harpay">Harpay</option>
+                          <option value="Coinless">Coinless</option>
+                      </select>
+                    </div>
+                    <div class="col-md-12">
+                      <button class="btn karl-checkout-btn" id="submit">View</button>
+                    </div>
+                    <br>
                       
-                          <div class="row">
+                    <div class="col-12 mb-8">
+                      <table class="col-12 mb-8">
+                        <tr>
+                          <td>Id User</td>
+                          <td id="id"> </td>
+                        </tr>
+                        <tr>
+                          <td>Nama</td>
+                          <td id="name"> </td>
+                        </tr>
+                        <tr>
+                          <td>Saldo</td>
+                          <td id="balance"> </td>
+                        </tr>
+                        <tr>
+                          <td>Pin Harpay</td>
+                          <td id="pin"></td>
+                        </tr>
+                      </table>
+                    </div>
 
-                              <div class="col-12 mb-6">
-                                  <label for="Name">Id User: </label>
-                              </div>
-                              <div class="col-12 mb-6">
-                                  <label for="Name">Nama: </label>
-                              </div>
-                              <div class="col-12 mb-6">
-                                  <label for="phone">Password: </label>
-                              </div>
-                              <div class="col-12 mb-6">
-                                  <label for="email">Email: </label>
-                              </div>
-                              <hr/>
-                                                           
-                          </div>
-
-                          <div class="row">
-                            <div class="col-12 mb-3">
-                              <div class="featured-item">
-                              <label for="saldo"><b>Saldo: </b></label>
-                              </div>
-                            </div>
-                            </div>
-
-                          <div class="row">
-                          <div class="col-12 mb-3">
-                            <div class="featured-item">
-                            <label for="saldo"><b>Saldo: </b></label>
-                            </div>
-                          </div>
-                          </div>
-
-                          <div class="row">
-                          <div class="col-12 mb-3">
-                            <div class="featured-item">
-                            <label for="saldo"><b>Saldo: </b></label>
-                            </div>
-                          </div>
-                          </div>
-                      
                   </div>
               </div>       
               </div>
@@ -166,6 +175,7 @@ https://www.tooplate.com/view/2114-pixie
     <script src="js/plugins.js"></script>
     <!-- Active js -->
     <script src="js/active.js"></script>
+    <script src="profile.js"></script>
 
 
     <script language = "text/Javascript"> 

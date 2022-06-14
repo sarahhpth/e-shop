@@ -54,7 +54,7 @@ https://www.tooplate.com/view/2114-pixie
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="index2.php">Home
+            <a class="nav-link" href="home.php">Home
               <span class="sr-only">(current)</span>
             </a>
           </li>

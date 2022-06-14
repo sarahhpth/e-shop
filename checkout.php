@@ -78,7 +78,7 @@ https://www.tooplate.com/view/2114-pixie
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index2.php">Home
+                        <a class="nav-link" href="home.php">Home
                         </a>
                     </li>
                     <li class="nav-item">
@@ -150,49 +150,50 @@ https://www.tooplate.com/view/2114-pixie
 
 
                         <div id="accordion" role="tablist" class="mb-4">
-                        <div class="card">
-                            <div class="card-header" role="tab" id="headingOne">
-                                <form action="/action_page.php">
+                            <div class="card">
+                                <div class="card-header" role="tab" id="headingOne">
+                                    <form action="/action_page.php">
 
-                                  <div class="cart-page-heading">
-                                    <p>Choose a payment method:<p>
-                                    <div class="form-check form-check-inline">
-                                       <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="a" checked>
-                                       <label class="form-check-label" for="exampleRadios1">
-                                       A
-                                       </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                       <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="b">
-                                       <label class="form-check-label" for="exampleRadios2">
-                                       B
-                                       </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                       <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="c">
-                                       <label class="form-check-label" for="exampleRadios3">
-                                       C
-                                       </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                       <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="d">
-                                       <label class="form-check-label" for="exampleRadios4">
-                                       D
-                                       </label>
-                                    </div>
+                                        <div class="cart-page-heading">
+                                            <p>Choose a payment method:
+                                            <p>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="a" checked>
+                                                <label class="form-check-label" for="exampleRadios1">
+                                                    A
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="b">
+                                                <label class="form-check-label" for="exampleRadios2">
+                                                    B
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="c">
+                                                <label class="form-check-label" for="exampleRadios3">
+                                                    C
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="d">
+                                                <label class="form-check-label" for="exampleRadios4">
+                                                    D
+                                                </label>
+                                            </div>
 
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
+
+                        <a href="#" class="btn karl-checkout-btn">Place Order</a>
                     </div>
-
-                    <a href="#" class="btn karl-checkout-btn">Place Order</a>
                 </div>
-            </div>
 
-          </div>
-      </div>
-  </div>
+            </div>
+        </div>
+    </div>
     <!-- ****** Checkout Area End ****** -->
 
 

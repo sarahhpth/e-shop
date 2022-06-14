@@ -15,6 +15,10 @@ $harga = $product['harga'];
 $quantity = $_POST['quantity'];
 $total_harga = $harga * $quantity;
 
+// $data = ['nama_barang' => $nama_barang, 'total_harga' => $total_harga];
+// echo json_encode($data);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -114,16 +118,6 @@ https://www.tooplate.com/view/2114-pixie
                 <div class="col-md-4">
                     <div class="checkout_details_area mt-50 clearfix">
                         <?php
-                        // $id_barang = $_GET['id_barang'];
-                        // $sql = "SELECT * FROM barang WHERE id_barang = '$id_barang'";
-                        // $result = $conn->query($sql);
-                        // $product = mysqli_fetch_assoc($result);
-
-                        // $nama_barang = $product['nama_barang'];
-                        // $gambar = $product['gambar'];
-                        // $harga = $product['harga'];
-                        // $quantity = $_POST['quantity'];
-                        // $total_harga = $harga * $quantity;
 
                         $sql2 = "INSERT INTO transaksi (nama_barang, harga, quantity, total_harga) values('$nama_barang', '$harga', '$quantity', '$total_harga')";
                         $result2 = $conn->query($sql2);
@@ -139,13 +133,34 @@ https://www.tooplate.com/view/2114-pixie
 
                         <div class="cart-page-heading">
                             <h5>Your Order</h5>
-                            <p><?= $nama_barang ?></p>
+                            <p id="name"><?= $nama_barang ?></p>
                         </div>
 
                         <ul class="order-details-form mb-4">
-                            <li><span>Price</span> <span>Rp<?= $harga ?></span></li>
-                            <li><span>Quantity</span> <span><?= $quantity ?></span></li>
-                            <li><span>Total</span> <span>Rp<?= $total_harga ?></span></li>
+                            <li>
+                                <span>
+                                    <h6>Price</h6>
+                                </span>
+                                <span>
+                                    <h6>Rp<?= $harga ?></h6>
+                                </span>
+                            </li>
+                            <li>
+                                <span>
+                                    <h6>Quantity</h6>
+                                </span>
+                                <span>
+                                    <h6><?= $quantity ?></h6>
+                                </span>
+                            </li>
+                            <li>
+                                <span>
+                                    <h6>Total</h6>
+                                </span>
+                                <span>
+                                    <h6>Rp<?= $total_harga ?></h6>
+                                </span>
+                            </li>
                         </ul>
 
 
@@ -157,37 +172,24 @@ https://www.tooplate.com/view/2114-pixie
                                         <div class="cart-page-heading">
                                             <p>Choose a payment method:
                                             <p>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="a" checked>
-                                                <label class="form-check-label" for="exampleRadios1">
-                                                    A
-                                                </label>
+                                                <select id="emoney" class="form-control">
+                                                    <option value="Moneygo">Moneygo</option>
+                                                    <option value="Ecia">Ecia</option>
+                                                    <option value="Harpay">Harpay</option>
+                                                    <option value="Coinless">Coinless</option>
+                                                </select>
+                                                <label></label>
+                                            <div class=mb-6">
+                                                <input type="text" class="form-control" placeholder="Pin Harpay" id="pin" value="">
                                             </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="b">
-                                                <label class="form-check-label" for="exampleRadios2">
-                                                    B
-                                                </label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="c">
-                                                <label class="form-check-label" for="exampleRadios3">
-                                                    C
-                                                </label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="d">
-                                                <label class="form-check-label" for="exampleRadios4">
-                                                    D
-                                                </label>
-                                            </div>
+                                        </div>
 
                                     </form>
                                 </div>
                             </div>
                         </div>
 
-                        <a href="#" class="btn karl-checkout-btn">Place Order</a>
+                        <a href="#" class="btn karl-checkout-btn" id="submit">Place Order</a>
                     </div>
                 </div>
 
@@ -195,6 +197,118 @@ https://www.tooplate.com/view/2114-pixie
         </div>
     </div>
     <!-- ****** Checkout Area End ****** -->
+    <script>
+        <?php
+        echo "var nama_barang ='$nama_barang';";
+        echo "var total_harga ='$total_harga';";
+        ?>
+        console.log(nama_barang);
+
+        //ambil token dari local.Storage. local storage ada di page source >> application
+        const moneygo = JSON.stringify(localStorage.getItem('moneygo'));
+        // const ecia = JSON.stringify(localStorage.getItem('ecia'));
+        // const harpay = JSON.stringify(localStorage.getItem('harpay'));
+        // const coinless = JSON.stringify(localStorage.getItem('coinless'));
+
+
+        // const hp = document.querySelector("#hp"); //hp penerima harpay
+        // const email = document.querySelector("#email"); //receiver's
+        // const price = document.getElementById("#price");
+        const emoney = document.querySelector("#emoney");
+        const pin = document.querySelector("#pin"); //pin harpay
+        const buttonSubmit = document.querySelector("#submit");
+
+        buttonSubmit.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            var selected = emoney.options[emoney.selectedIndex].value; //selected value from the drop down
+
+            if (selected == "Moneygo") {
+                var api_transaksi = "https://moneygo-api.herokuapp.com/api/transaksi";
+                var token = ("Bearer " + moneygo).replace(/\"/g, ""); //variable untuk nyimpen token. ini yg dikirim ke api
+                var method = "POST";
+
+                var raw = JSON.stringify({
+                    balance: total_harga
+                });
+
+            }
+            if (selected == "Coinless") {
+                var api_transaksi = "https://coinless.herokuapp.com/api/transfer";
+                var token = ("Bearer " + coinless).replace(/\"/g, ""); //variable untuk nyimpen token. ini yg dikirim ke api
+                var method = "POST";
+
+                var raw = JSON.stringify({
+                    email: email.value,
+                    balance: balance.value
+                });
+
+            }
+            if (selected == "Harpay") {
+                var api_transaksi = " https://harpay-api.herokuapp.com/transaksi/transferSaldo";
+                var token = ("Bearer " + harpay).replace(/\"/g, ""); //variable untuk nyimpen token. ini yg dikirim ke api
+                var method = "POST";
+
+                var raw = JSON.stringify({
+                    noTelp: hp.value,
+                    nominal: balance.value,
+                    pin: pin.value
+                });
+            }
+
+            var myHeaders = new Headers();
+            myHeaders.append("Authorization", token);
+            myHeaders.append("Content-Type", "application/json");
+
+
+            var requestOptions = {
+                method: method,
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            async function getResponse() {
+                try {
+                    let res = await fetch(api_transaksi, requestOptions)
+                    console.log("Fetch berhasil");
+                    return await (res.text());
+                } catch (error) {
+                    console.log('error', error)
+                };
+            }
+
+            async function getData() {
+
+                //response masih dalam bentuk string
+                let data_api = await getResponse();
+                // let data_coinless = await getResponse(coinless_login);
+                // let data_harpay = await getResponse(harpay_login);
+                // let data_ecia = await getResponse(ecia_login);
+                console.log(data_api)
+
+                //response string dijadiin json
+                var resp_api = JSON.parse(data_api);
+                // var resp_coinless= JSON.parse(data_coinless);
+                // var resp_harpay= JSON.parse(data_harpay);
+                // var resp_ecia= JSON.parse(data_ecia);
+
+                //kalo success
+                if (resp_api.status == 200) {
+                    alert(resp_api.message);
+                    window.location.href = "home.php";
+                } else {
+                    alert(resp_api.message);
+                }
+
+                // if(resp_moneygo.error == true && resp_coinless.jwt ){
+
+                // }
+            };
+
+            getData();
+        })
+    </script>
 
 
 
@@ -215,6 +329,7 @@ https://www.tooplate.com/view/2114-pixie
     <script src="js/plugins.js"></script>
     <!-- Active js -->
     <script src="js/active.js"></script>
+    <!-- <script src="checkout.js"></script> -->
 
 
     <script language="text/Javascript">

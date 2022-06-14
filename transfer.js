@@ -5,6 +5,7 @@ const harpay = JSON.stringify(localStorage.getItem('harpay'));
 const coinless = JSON.stringify(localStorage.getItem('coinless'));
 
 
+const id_penerima = document.querySelector("#id_penerima"); //id penerima coinless
 const hp = document.querySelector("#hp"); //hp penerima harpay
 const email = document.querySelector("#email"); //receiver's
 const balance = document.querySelector("#nominal");
@@ -34,8 +35,8 @@ buttonSubmit.addEventListener("click", (e) => {
         var method = "POST";
 
         var raw = JSON.stringify({
-            email: email.value,
-            balance: balance.value
+            tujuan:id_penerima.value,
+            jumlah: balance.value
         });
         
     }

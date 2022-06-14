@@ -1,11 +1,15 @@
 //ambil token dari local.Storage. local storage ada di page source >> application
 const moneygo = JSON.stringify(localStorage.getItem('moneygo'));
-const ecia = JSON.stringify(localStorage.getItem('ecia'));
+// const ecia = JSON.stringify(localStorage.getItem('ecia'));
 const harpay = JSON.stringify(localStorage.getItem('harpay'));
+const coinless = JSON.stringify(localStorage.getItem('coinless'));
 
+
+const hp = document.querySelector("#hp"); //hp penerima harpay
 const email = document.querySelector("#email"); //receiver's
 const balance = document.querySelector("#nominal");
 const emoney = document.querySelector("#emoney"); 
+const pin = document.querySelector("#pin"); //pin harpay
 const buttonSubmit = document.querySelector("#submit");
 
 buttonSubmit.addEventListener("click", (e) => {
@@ -18,29 +22,39 @@ buttonSubmit.addEventListener("click", (e) => {
         var token = ("Bearer " + moneygo).replace(/\"/g, ""); //variable untuk nyimpen token. ini yg dikirim ke api
         var method = "PUT";
 
+        var raw = JSON.stringify({
+            email: email.value,
+            balance: balance.value
+        });
+
     }
-    if(selected == "Ecia"){
-        var api_transfer = "https://api-ecia.herokuapp.com/api/transfer/";
-        var token = ("Bearer " + ecia).replace(/\"/g, ""); //variable untuk nyimpen token. ini yg dikirim ke api
+    if(selected == "Coinless"){
+        var api_transfer = "https://coinless.herokuapp.com/api/transfer";
+        var token = ("Bearer " + coinless).replace(/\"/g, ""); //variable untuk nyimpen token. ini yg dikirim ke api
         var method = "POST";
+
+        var raw = JSON.stringify({
+            email: email.value,
+            balance: balance.value
+        });
         
     }
     if(selected == "Harpay"){
-        var api_transfer = "https://api-ecia.herokuapp.com/api/transfer/";
+        var api_transfer = " https://harpay-api.herokuapp.com/transaksi/transferSaldo";
         var token = ("Bearer " + harpay).replace(/\"/g, ""); //variable untuk nyimpen token. ini yg dikirim ke api
         var method = "POST";
-        
+
+        var raw = JSON.stringify({
+        noTelp: hp.value,
+        nominal: balance.value,
+        pin: pin.value
+    });
     }
 
     var myHeaders = new Headers();
     myHeaders.append("Authorization", token);
     myHeaders.append("Content-Type", "application/json");
-
-    var raw = JSON.stringify({
-        email: email.value,
-        balance: balance.value,
-        jumlah: balance.value
-    });
+    
 
     var requestOptions = {
         method: method,
@@ -75,8 +89,8 @@ buttonSubmit.addEventListener("click", (e) => {
         // var resp_ecia= JSON.parse(data_ecia);
 
         //kalo success
-        if(resp_api.status == 200){
-            
+        if(resp_api.status == 200 || resp_api.message == "Successfully payment for transfer saldo"){
+            alert(resp_api.message);
             window.location.href = "home.php";
         }else{
             alert(resp_api.message);

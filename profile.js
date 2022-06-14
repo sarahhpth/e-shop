@@ -24,7 +24,7 @@ buttonSubmit.addEventListener("click", (e) => {
 
     }
     if(selected == "Coinless"){
-        var api_profile = "https://api-ecia.herokuapp.com/api/transfer/";
+        var api_profile = "https://coinless.herokuapp.com/api/profile";
         var token = ("Bearer " + coinless).replace(/\"/g, ""); //variable untuk nyimpen token. ini yg dikirim ke api
         
         

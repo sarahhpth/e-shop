@@ -12,6 +12,7 @@ const id_user = document.querySelector("#id");
 const nama_user = document.querySelector("#name");
 const balance_user = document.querySelector("#balance");
 const pin_user = document.querySelector("#pin"); //ini untuk harpay -_-
+const hp_user = document.querySelector("#noTelp"); //ini untuk harpay -_-
 
 buttonSubmit.addEventListener("click", (e) => {
     e.preventDefault(); 
@@ -77,24 +78,28 @@ buttonSubmit.addEventListener("click", (e) => {
                 var id = resp_api.id;
                 var saldo = resp_api.balance;
                 var pin = "";
+                var noTelp = "";
             }
             if(selected == "Harpay"){
                 var name = resp_api.name;
                 var id = resp_api._id;
                 var saldo = resp_api.saldo;
                 var pin = resp_api.pin;
+                var noTelp = resp_api.noTelp;
             }
             if(selected == "Met4"){
                 var name = resp_api.data.name;
                 var id = resp_api.data.uid;
                 var saldo = resp_api.data.cash;
                 var pin = "";
+                var noTelp = "";
             }
             if(selected == "Coinless"){
                 var name = resp_api.name;
                 var id = resp_api.id_user;
                 var saldo = resp_api.saldo;
                 var pin = "";
+                var noTelp = "";
             }
 
             
@@ -102,6 +107,7 @@ buttonSubmit.addEventListener("click", (e) => {
             nama_user.innerText = name;
             balance_user.innerText = saldo;
             pin_user.innerText = pin;
+            hp_user.innerText = noTelp;
         
         
         if(resp_api.name === null){

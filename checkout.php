@@ -167,20 +167,20 @@ https://www.tooplate.com/view/2114-pixie
                         <div id="accordion" role="tablist" class="mb-4">
                             <div class="card">
                                 <div class="card-header" role="tab" id="headingOne">
-                                    <form action="/action_page.php">
+                                    <form>
 
                                         <div class="cart-page-heading">
                                             <p>Choose a payment method:
                                             <p>
                                                 <select id="emoney" class="form-control">
                                                     <option value="Moneygo">Moneygo</option>
-                                                    <option value="Ecia">Ecia</option>
+                                                    <option value="Met4">Met4Kantin</option>
                                                     <option value="Harpay">Harpay</option>
                                                     <option value="Coinless">Coinless</option>
                                                 </select>
                                                 <label></label>
                                             <div class=mb-6">
-                                                <input type="text" class="form-control" placeholder="Pin Harpay" id="pin" value="">
+                                                <input class="form-control" placeholder="Pin Harpay" id="pin" name="pin">
                                             </div>
                                         </div>
 
@@ -204,11 +204,20 @@ https://www.tooplate.com/view/2114-pixie
         ?>
         console.log(nama_barang);
 
+        function parseJwt(token) {
+            var base64 = token.split('.')[1];
+            var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+
+            return JSON.stringify(jsonPayload);
+        };
+
         //ambil token dari local.Storage. local storage ada di page source >> application
         const moneygo = JSON.stringify(localStorage.getItem('moneygo'));
-        // const ecia = JSON.stringify(localStorage.getItem('ecia'));
-        // const harpay = JSON.stringify(localStorage.getItem('harpay'));
-        // const coinless = JSON.stringify(localStorage.getItem('coinless'));
+        const met4 = JSON.stringify(localStorage.getItem('met4'));
+        const harpay = JSON.stringify(localStorage.getItem('harpay'));
+        const coinless = JSON.stringify(localStorage.getItem('coinless'));
 
 
         // const hp = document.querySelector("#hp"); //hp penerima harpay
@@ -217,6 +226,8 @@ https://www.tooplate.com/view/2114-pixie
         const emoney = document.querySelector("#emoney");
         const pin = document.querySelector("#pin"); //pin harpay
         const buttonSubmit = document.querySelector("#submit");
+
+
 
         buttonSubmit.addEventListener("click", (e) => {
             e.preventDefault();
@@ -234,25 +245,48 @@ https://www.tooplate.com/view/2114-pixie
 
             }
             if (selected == "Coinless") {
-                var api_transaksi = "https://coinless.herokuapp.com/api/transfer";
+                var parsed_harga = parseInt(total_harga);
+                console.log(parsed_harga);
+
+                var dataToken = parseJwt(coinless);
+                var id = dataToken.id_user;
+
+                var api_transaksi = "https://coinless.herokuapp.com/api/pembelian";
                 var token = ("Bearer " + coinless).replace(/\"/g, ""); //variable untuk nyimpen token. ini yg dikirim ke api
-                var method = "POST";
+                var method = "PUT";
 
                 var raw = JSON.stringify({
-                    email: email.value,
-                    balance: balance.value
+                    jumlah: parsed_harga,
+                    id_user: id,
+                    nama_barang: nama_barang
+                });
+
+            }
+            if (selected == "Met4") {
+                var parsed_harga = parseInt(total_harga);
+                console.log(parsed_harga);
+
+                var api_transaksi = "https://met4kantin.herokuapp.com/api/pay";
+                var token = ("Bearer " + met4).replace(/\"/g, ""); //variable untuk nyimpen token. ini yg dikirim ke api
+                var method = "PUT";
+
+                var raw = JSON.stringify({
+                    jumlah: parsed_harga,
                 });
 
             }
             if (selected == "Harpay") {
-                var api_transaksi = " https://harpay-api.herokuapp.com/transaksi/transferSaldo";
+                var parsed_pin = parseInt(pin.value);
+                console.log(total_harga);
+                console.log(pin.value);
+
+                var api_transaksi = "https://harpay-api.herokuapp.com/transaksi/bayar";
                 var token = ("Bearer " + harpay).replace(/\"/g, ""); //variable untuk nyimpen token. ini yg dikirim ke api
                 var method = "POST";
 
                 var raw = JSON.stringify({
-                    noTelp: hp.value,
-                    nominal: balance.value,
-                    pin: pin.value
+                    jumlahBayar: total_harga,
+                    pin: parsed_pin
                 });
             }
 
@@ -294,7 +328,7 @@ https://www.tooplate.com/view/2114-pixie
                 // var resp_ecia= JSON.parse(data_ecia);
 
                 //kalo success
-                if (resp_api.status == 200) {
+                if (resp_api.status == 200 || resp_api.message == "Transaction successfully") {
                     alert(resp_api.message);
                     window.location.href = "home.php";
                 } else {

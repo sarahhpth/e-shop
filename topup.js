@@ -11,9 +11,10 @@ function parseJwt (token) {
 
 //ambil token dari local.Storage. local storage ada di page source >> application
 const moneygo = JSON.stringify(localStorage.getItem('moneygo'));
-const ecia = JSON.stringify(localStorage.getItem('ecia'));
 const harpay = JSON.stringify(localStorage.getItem('harpay'));
 const coinless = JSON.stringify(localStorage.getItem('coinless'));
+const met4 = JSON.stringify(localStorage.getItem('met4'));
+
 
 const balance = document.querySelector("#nominal");
 const emoney = document.querySelector("#emoney"); 
@@ -36,6 +37,15 @@ buttonSubmit.addEventListener("click", (e) => {
 
         var api_topup = "https://coinless.herokuapp.com/api/profile/" + id;
         var token = ("Bearer " + coinless).replace(/\"/g, ""); //variable untuk nyimpen token. ini yg dikirim ke api
+        var method = "PUT";
+        
+    }
+    if(selected == "Met4"){
+        var dataToken = parseJwt(met4);
+        var user = dataToken.id;
+
+        var api_topup = "https://met4kantin.herokuapp.com/api/profile/" + user;
+        var token = ("Bearer " + met4).replace(/\"/g, ""); //variable untuk nyimpen token. ini yg dikirim ke api
         var method = "PUT";
         
     }
@@ -90,7 +100,7 @@ buttonSubmit.addEventListener("click", (e) => {
 
         //kalo success
         if(resp_api.status == 200 || resp_api.message == "Topup successfully!"){
-            
+            alert(resp_api.message);
             window.location.href = "home.php";
         }else{
             alert(resp_api.message);

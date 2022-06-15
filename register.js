@@ -1,6 +1,6 @@
 var moneygo_register = "https://moneygo-api.herokuapp.com/api/register";
 var coinless_register = "https://coinless.herokuapp.com/api/profile";
-// var ecia_register = "https://api-ecia.herokuapp.com/api/profile";
+var met4_register = "https://met4kantin.herokuapp.com/api/profile";
 var harpay_register = "https://harpay-api.herokuapp.com/auth/registrasi"; //ini banyak amat parameternya
 
 //post
@@ -42,16 +42,17 @@ buttonSubmit.addEventListener("click", (e) => {
         //response masih dalam bentuk string
         let data_moneygo = await getResponse(moneygo_register);
         let data_coinless = await getResponse(coinless_register);
-        // let data_ecia = await getResponse(ecia_register);
+        let data_met4 = await getResponse(met4_register);
         
 
         //response string dijadiin json
         var resp_moneygo = JSON.parse(data_moneygo);
         var resp_coinless= JSON.parse(data_coinless);
-        // var resp_ecia= JSON.parse(data_ecia);
+        var resp_met4= JSON.parse(data_met4);
 
         
-        if(resp_moneygo.status == 200 && resp_coinless.status == 200){
+        if(resp_moneygo.status == 200 && resp_coinless.status == 200 && resp_met4.status == 200){
+            alert(resp_moneygo.message)
             window.location.href = "login.html";
         }else{
             alert("Try again");

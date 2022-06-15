@@ -1,6 +1,7 @@
 var moneygo_login = "https://moneygo-api.herokuapp.com/api/login";
 var coinless_login = "https://coinless.herokuapp.com/api/login";
 var harpay_login = "https://harpay-api.herokuapp.com/auth/login";
+var met4_login = "https://met4kantin.herokuapp.com/api/login";
 
 var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
@@ -40,17 +41,20 @@ buttonSubmit.addEventListener("click", (e) => {
         let data_moneygo = await getResponse(moneygo_login);
         let data_coinless = await getResponse(coinless_login);
         let data_harpay = await getResponse(harpay_login);
+        let data_met4 = await getResponse(met4_login);
         
         //response string dijadiin json
         var resp_moneygo = JSON.parse(data_moneygo);
         var resp_coinless= JSON.parse(data_coinless);
         var resp_harpay= JSON.parse(data_harpay);
+        var resp_met4= JSON.parse(data_met4);
 
         //kalo success
-        if(resp_moneygo.success == true && resp_coinless.status == 200 && resp_harpay.message == "Auth success"){
+        if(resp_moneygo.success == true && resp_met4.status == 200 && resp_coinless.status == 200 && resp_harpay.message == "Auth success"){
             window.localStorage.setItem('moneygo', resp_moneygo.token);
             window.localStorage.setItem('coinless', resp_coinless.jwt);
             window.localStorage.setItem('harpay', resp_harpay.token);
+            window.localStorage.setItem('met4', resp_met4.jwt);
             
             window.location.href = "home.php";
         }else{

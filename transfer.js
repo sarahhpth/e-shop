@@ -30,17 +30,25 @@ buttonSubmit.addEventListener("click", (e) => {
 
     }
     if(selected == "Coinless"){
+        var parsed_harga = parseInt(balance.value);
+        // console.log(total_harga);
+        // console.log(pin.value);
+
         var api_transfer = "https://coinless.herokuapp.com/api/transfer";
         var token = ("Bearer " + coinless).replace(/\"/g, ""); //variable untuk nyimpen token. ini yg dikirim ke api
         var method = "POST";
 
         var raw = JSON.stringify({
             tujuan:id_penerima.value,
-            jumlah: balance.value
+            jumlah: parsed_harga
         });
         
     }
     if(selected == "Harpay"){
+        var parsed_pin = parseInt(pin.value);
+        // console.log(total_harga);
+        console.log(pin.value);
+
         var api_transfer = " https://harpay-api.herokuapp.com/transaksi/transferSaldo";
         var token = ("Bearer " + harpay).replace(/\"/g, ""); //variable untuk nyimpen token. ini yg dikirim ke api
         var method = "POST";
@@ -48,7 +56,7 @@ buttonSubmit.addEventListener("click", (e) => {
         var raw = JSON.stringify({
         noTelp: hp.value,
         nominal: balance.value,
-        pin: pin.value
+        pin: parsed_pin
     });
     }
 

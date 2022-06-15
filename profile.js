@@ -2,6 +2,7 @@
 const moneygo = JSON.stringify(localStorage.getItem('moneygo'));
 const harpay = JSON.stringify(localStorage.getItem('harpay'));
 const coinless = JSON.stringify(localStorage.getItem('coinless'));
+const met4 = JSON.stringify(localStorage.getItem('met4'));
 
 
 const emoney = document.querySelector("#emoney");
@@ -26,6 +27,12 @@ buttonSubmit.addEventListener("click", (e) => {
     if(selected == "Coinless"){
         var api_profile = "https://coinless.herokuapp.com/api/profile";
         var token = ("Bearer " + coinless).replace(/\"/g, ""); //variable untuk nyimpen token. ini yg dikirim ke api
+        
+        
+    }
+    if(selected == "Met4"){
+        var api_profile = "https://met4kantin.herokuapp.com/api/profile";
+        var token = ("Bearer " + met4).replace(/\"/g, ""); //variable untuk nyimpen token. ini yg dikirim ke api
         
         
     }
@@ -66,22 +73,31 @@ buttonSubmit.addEventListener("click", (e) => {
         var resp_api =JSON.parse(data_api);
         
             if(selected == "Moneygo"){
+                var name = resp_api.name;
                 var id = resp_api.id;
                 var saldo = resp_api.balance;
                 var pin = "";
             }
             if(selected == "Harpay"){
+                var name = resp_api.name;
                 var id = resp_api._id;
                 var saldo = resp_api.saldo;
                 var pin = resp_api.pin;
             }
+            if(selected == "Met4"){
+                var name = resp_api.data.name;
+                var id = resp_api.data.uid;
+                var saldo = resp_api.data.cash;
+                var pin = "";
+            }
             if(selected == "Coinless"){
+                var name = resp_api.name;
                 var id = resp_api.id_user;
                 var saldo = resp_api.saldo;
                 var pin = "";
             }
 
-            var name = resp_api.name;
+            
             id_user.innerText = id;
             nama_user.innerText = name;
             balance_user.innerText = saldo;

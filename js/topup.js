@@ -87,16 +87,10 @@ buttonSubmit.addEventListener("click", (e) => {
 
         //response masih dalam bentuk string
         let data_api = await getResponse();
-        // let data_coinless = await getResponse(coinless_login);
-        // let data_harpay = await getResponse(harpay_login);
-        // let data_ecia = await getResponse(ecia_login);
         console.log(data_api)
         
         //response string dijadiin json
         var resp_api = JSON.parse(data_api);
-        // var resp_coinless= JSON.parse(data_coinless);
-        // var resp_harpay= JSON.parse(data_harpay);
-        // var resp_ecia= JSON.parse(data_ecia);
 
         //kalo success
         if(resp_api.status == 200 || resp_api.message == "Topup successfully!"){
@@ -106,9 +100,6 @@ buttonSubmit.addEventListener("click", (e) => {
             alert(resp_api.message);
         }
         
-        // if(resp_moneygo.error == true && resp_coinless.jwt ){
-            
-        // }
     };
 
     getData();

@@ -65,7 +65,7 @@ buttonSubmit.addEventListener("click", (e) => {
     };
     }
 
-    // Ini buat setelah nge fetch (JANGAN diilangin 2.0)
+    
     async function getData(){
         //response masih dalam bentuk string
         let data_api = await getResponse();
